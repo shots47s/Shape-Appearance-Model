@@ -1,4 +1,4 @@
 from viplatform/matlab-compiler-runtime:2016a
-ADD runPG /bin
+ADD runPG /bin/
 RUN yum install python -y
-ADD create_settings.py /bin
+ADD boutiques/create_settings.py /bin/
