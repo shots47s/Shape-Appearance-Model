@@ -102,6 +102,10 @@
             "path-template": "[RESULT_DIR]", 
             "name": "Output folder"
         }
-    ], 
+    ],
+    "container-image": {
+            "image": "boutiques/runpg",
+            "type": "docker"
+    }, 
     "description": "Combined Shape & Appearance Modelling of 3D volumes. The general idea is to take a bunch of 2D or 3D images and factorise them in a way that combines both shape and appearance."
 }
