@@ -36,7 +36,7 @@ def file_exists(parser, file_name):
 
 def main(args=None):
 
-    parser = ArgumentParser(description="Wrapper for runPG Matlab application")
+    parser = ArgumentParser(description="A script that creates the settings file for the runPG application")
     parser.add_argument("filenames", type=lambda x: file_exists(parser, x), help="JSON file containing the file names.")
     parser.add_argument("k", type=int,
                         help="Number of shape and appearance components. Example: 64")
