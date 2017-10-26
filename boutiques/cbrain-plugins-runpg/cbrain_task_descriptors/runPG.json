@@ -15,6 +15,7 @@
         }, 
         {
             "description": "Directory containing the input files.", 
+            "value-key": "[BLAH]",
             "type": "File", 
             "id": "input_directory", 
             "name": "Input directory"
