@@ -1,7 +1,7 @@
 {
     "tool-version": "unknown version", 
     "name": "runPG", 
-    "command-line": "runPG.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE]", 
+    "command-line": "create_settings.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE]", 
     "inputs": [
         {
             "description": "JSON file containing the file names.", 

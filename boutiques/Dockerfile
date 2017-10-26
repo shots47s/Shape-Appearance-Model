@@ -1,3 +1,4 @@
 from viplatform/matlab-compiler-runtime:2016a
-yum install python -y
-add runPG.py /bin
+ADD runPG /bin
+RUN yum install python -y
+ADD runPG.py /bin
