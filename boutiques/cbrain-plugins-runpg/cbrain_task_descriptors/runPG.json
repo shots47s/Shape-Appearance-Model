@@ -1,6 +1,7 @@
 {
     "tool-version": "unknown version", 
-    "name": "runPG", 
+    "name": "runPG",
+    "schema-version": "0.5", 
     "command-line": "create_settings.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE]", 
     "inputs": [
         {
@@ -14,6 +15,7 @@
         }, 
         {
             "description": "Directory containing the input files.", 
+            "value-key": "[BLAH]",
             "type": "File", 
             "id": "input_directory", 
             "name": "Input directory"
@@ -101,6 +103,10 @@
             "path-template": "[RESULT_DIR]", 
             "name": "Output folder"
         }
-    ], 
+    ],
+    "container-image": {
+            "image": "boutiques/runpg",
+            "type": "docker"
+    }, 
     "description": "Combined Shape & Appearance Modelling of 3D volumes. The general idea is to take a bunch of 2D or 3D images and factorise them in a way that combines both shape and appearance."
 }
