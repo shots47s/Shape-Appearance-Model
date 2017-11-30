@@ -1,11 +1,11 @@
 {
-  "K": __K__,                      % Number of shape and appearance components
-  "vx": __VX__,                    % Voxel sizes (mm - matches those of "imported" images)
-  "v_settings": __V_SETTINGS__,    % Registration regularisation settings.
-  "a_settings": __A_SETTINGS__,    % Appearance regularisation settings.
-  "mu_settings": __MU_SETTINGS__,  % Mean image regularisation settings.
-  "maxit": __MAXIT__,              % Number of iterations.
-  "result_name": "__RESULT_NAME__",% Name of results files.
-  "result_dir": "__RESULT_DIR__",  % Name of result directory.
-  "batchsize": __BATCHSIZE__       % Batch-size (for local parallelisation).
+  "K": __K__,                      
+  "vx": __VX__,                    
+  "v_settings": __V_SETTINGS__,    
+  "a_settings": __A_SETTINGS__,    
+  "mu_settings": __MU_SETTINGS__,  
+  "maxit": __MAXIT__,              
+  "result_name": "__RESULT_NAME__",
+  "result_dir": "__RESULT_DIR__",  
+  "batchsize": __BATCHSIZE__      
 }

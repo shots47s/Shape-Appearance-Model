@@ -24,10 +24,17 @@ def run_app(file_names, settings):
     path, fil = os.path.split(__file__)
     app_file = os.path.join(path, "runPG")
 
-    subprocess.check_output("{0} {1} {2}".format(app_file,
-                                                 file_names,
-                                                 settings),
-                            shell=True, stderr=subprocess.STDOUT)
+    cmdStr = "runPG {0} {1}".format(
+                                  file_names,
+                                  settings)
+    #cmdStr = "cat {0}".format(settings)
+    print "CMD = {0}".format(cmdStr)
+    try:
+        result = subprocess.check_output(cmdStr,
+                                         shell=True, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+	print "Error is {0}".format(e.output)
+  
 
 def file_exists(parser, file_name):
     if not os.path.exists(file_name):
@@ -35,7 +42,7 @@ def file_exists(parser, file_name):
     return file_name
 
 def main(args=None):
-
+    print "Yo"
     parser = ArgumentParser(description="A script that creates the settings file for the runPG application")
     parser.add_argument("filenames", type=lambda x: file_exists(parser, x), help="JSON file containing the file names.")
     parser.add_argument("k", type=int,
@@ -50,7 +57,8 @@ def main(args=None):
     parser.add_argument("batch_size", type=int, help="Batch-size (for local parallelisation). Example: 4.")
 
     results=parser.parse_args() if args is None else parser.parse_args(args)
-
+    
+    print results
     path, fil = os.path.split(__file__)
     template_file = os.path.join(path, "template.json")
     build_settings_file(template_file, ".test.json",
@@ -63,6 +71,7 @@ def main(args=None):
                       results.result_name,
                       results.result_dir,
                       str(results.batch_size))
+    run_app(results.filenames,'.test.json')
 
 if  __name__ == "__main__":
     main()

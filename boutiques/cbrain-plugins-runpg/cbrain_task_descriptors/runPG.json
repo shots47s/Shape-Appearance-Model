@@ -2,7 +2,7 @@
     "tool-version": "unknown version", 
     "name": "runPG",
     "schema-version": "0.5", 
-    "command-line": "create_settings.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE]", 
+    "command-line": "create_settings.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE] >& out.dat", 
     "inputs": [
         {
             "description": "JSON file containing the file names.", 
@@ -13,13 +13,6 @@
             "id": "file_names", 
             "name": "File names"
         }, 
-        {
-            "description": "Directory containing the input files.", 
-            "value-key": "[BLAH]",
-            "type": "File", 
-            "id": "input_directory", 
-            "name": "Input directory"
-        },
         {
             "description": "Number of shape and appearance components.", 
 	    "default-value": 64,
@@ -105,7 +98,7 @@
         }
     ],
     "container-image": {
-            "image": "boutiques/runpg",
+            "image": "shots47s/shape-appear",
             "type": "docker"
     }, 
     "description": "Combined Shape & Appearance Modelling of 3D volumes. The general idea is to take a bunch of 2D or 3D images and factorise them in a way that combines both shape and appearance."
