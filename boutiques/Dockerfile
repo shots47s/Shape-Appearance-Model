@@ -1,5 +1,5 @@
-from viplatform/matlab-compiler-runtime:2016a
+from shots47s/matlab-runtime:2017b 
 ADD runPG /bin/
 RUN yum install python -y
-ADD boutiques/create_settings.py /bin/
-ADD boutiques/template.json /bin/
+ADD create_settings.py /bin/
+ADD template.json /bin/
