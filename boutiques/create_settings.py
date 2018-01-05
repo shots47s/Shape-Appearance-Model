@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, subprocess
+import os, sys, subprocess, shutil, glob
 from argparse import ArgumentParser
 
 def build_settings_file(template_file, output_file, k, vx, v_settings, a_settings, mu_settings, maxit, result_name, result_dir, batch_size):
@@ -20,31 +20,57 @@ def build_settings_file(template_file, output_file, k, vx, v_settings, a_setting
     with open(output_file, 'w') as f:
         f.write(template_string)
 
+def build_filename_json(settings):
+    ## This is a destructive process, but since this is meant for a single execution, it is ok
+    fileNames = glob.glob('{0}/*.nii'.format(settings.filecol))
+
+    ### now we want to parse the filenames.json in the proper format
+    ### for now, will assume that the files begin with rcXs, with X being the index of the file
+    ### TO DO make more robust if the files do not have a proper naming convention
+    offset = len(settings.filecol)
+    ids = set([x[(offset + 5):(offset + 21)] for x in fileNames])
+    print "Ids = {0}".format(ids)
+    counts = {y:len([x for x in fileNames if y in x]) for y in ids}
+    print "Counts = {0}".format(counts)
+    jsonString = ["["]
+    for k,v in counts.items():
+        if v > 1:
+            fileList = sorted([x for x in fileNames if k in x])
+            jsonString.append("{0},\n".format(fileList))
+    jsonString[-1] = jsonString[-1][:-1]
+    jsonString.append("]")
+
+    with open("filename.json","w") as f:
+        f.write("".join(jsonString))    
+        
 def run_app(file_names, settings):
     path, fil = os.path.split(__file__)
     app_file = os.path.join(path, "runPG")
 
-    cmdStr = "runPG {0} {1}".format(
+    cmdStr = "/bin/runPG {0} {1} >> out.dat".format(
                                   file_names,
                                   settings)
     #cmdStr = "cat {0}".format(settings)
-    print "CMD = {0}".format(cmdStr)
-    try:
-        result = subprocess.check_output(cmdStr,
-                                         shell=True, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-	print "Error is {0}".format(e.output)
-  
-
+    #print "CMD = {0}".format(cmdStr)
+    subprocess.check_output(cmdStr,
+                            shell=True, stderr=subprocess.STDOUT)
+def dir_full_of_niis_exists(parser, dir_name):
+    if not os.path.exists(dir_name):
+        parser.error("Directory not found {0}".format(dir_name))
+    niifileList = glob.glob("{0}/*.nii".format(dir_name))
+    if len(niifileList) == 0:
+        parser.error("Directory {0} has no nii files in it".format(dir_name))
+    return dir_name
+                                                 
 def file_exists(parser, file_name):
     if not os.path.exists(file_name):
-        parser.error("File not found: %s" % file_name)
+        parser.error("File not found: {0}".format(file_name))
     return file_name
 
 def main(args=None):
     print "Yo"
     parser = ArgumentParser(description="A script that creates the settings file for the runPG application")
-    parser.add_argument("filenames", type=lambda x: file_exists(parser, x), help="JSON file containing the file names.")
+    parser.add_argument("filecol", type=lambda x: dir_full_of_niis_exists(parser, x), help='Directory in which the nii files reside')
     parser.add_argument("k", type=int,
                         help="Number of shape and appearance components. Example: 64")
     parser.add_argument("vx", type=str, help="Voxel sizes (mm - matches those of \"imported\" images). Example: [1.5 1.5 1.5]")
@@ -58,9 +84,10 @@ def main(args=None):
 
     results=parser.parse_args() if args is None else parser.parse_args(args)
     
-    print results
     path, fil = os.path.split(__file__)
     template_file = os.path.join(path, "template.json")
+    build_filename_json(results)
+    sys.exit()
     build_settings_file(template_file, ".test.json",
                       str(results.k),
                       results.vx,

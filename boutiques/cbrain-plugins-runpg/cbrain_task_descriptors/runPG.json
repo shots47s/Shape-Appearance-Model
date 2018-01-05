@@ -2,16 +2,16 @@
     "tool-version": "unknown version", 
     "name": "runPG",
     "schema-version": "0.5", 
-    "command-line": "create_settings.py [FILE_NAMES] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE] >& out.dat", 
+    "command-line": "create_settings.py [FILE_COLLECTION] [K] [VX] [V_SETTINGS] [A_SETTINGS] [MU_SETTINGS] [MAXIT] [RESULT_NAME] [RESULT_DIR] [BATCH_SIZE] >& out.dat", 
     "inputs": [
         {
-            "description": "JSON file containing the file names.", 
-            "value-key": "[FILE_NAMES]", 
+            "description": "Directory the files are in", 
+            "value-key": "[FILE_COLLECTION]", 
             "type": "File", 
             "list": false, 
             "optional": false, 
-            "id": "file_names", 
-            "name": "File names"
+            "id": "file_collect", 
+            "name": "File Collection"
         }, 
         {
             "description": "Number of shape and appearance components.", 
